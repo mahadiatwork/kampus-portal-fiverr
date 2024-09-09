@@ -20,6 +20,7 @@
     "formidable": "^3.5.1",
     "iron-session": "^8.0.3",
     "jose": "^4.14.4",
+    "js-cookie": "^3.0.5",
     "next": "13.4.4",
     "next-auth": "^4.24.7",
     "nookies": "^2.5.2",

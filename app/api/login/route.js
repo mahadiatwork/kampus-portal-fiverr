@@ -73,12 +73,29 @@ export async function POST(request) {
     );
     //if email and password matched but forced password false then save all the data to cookies
     if (!userFound.data.data[0].Force_Password_Change) {
+      // Set the 'token' cookie
       cookies().set("token", jwtToken, {
         secure: true,
-        maxAge: 24 * 60 * 60,
+        maxAge: 24 * 60 * 60, // 1 day in seconds
+        httpOnly: true,
+      });
+    
+      const data = {
+        email: userFound.data.data[0].Email,
+        record_id: userFound.data.data[0].id,
+        name: userFound.data.data[0].Name1,
+        fname: userFound.data.data[0].First_Name,
+      };
+    
+      // Correctly stringify the data object
+      cookies().set("data", JSON.stringify(data), {
+        secure: true,
+        maxAge: 24 * 60 * 60, // 1 day in seconds
         httpOnly: true,
       });
     }
+
+    
     console.log({
       force_password: userFound.data.data[0].Force_Password_Change,
     });
