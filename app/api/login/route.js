@@ -19,15 +19,22 @@ export async function POST(request) {
         error: "Access token not found",
       });
     }
+    let token = response.data.access_token;
+
+    console.log({token})
+
+    // Replace the 'Zoho-oauthtoken' prefix with 'Bearer'
+    // let formattedToken = token.replace("Zoho-oauthtoken ", "Bearer ");
+
     const userFound = await axios.get(
-      `https://www.zohoapis.com/crm/v2/Portal_Users/search?criteria=(Email:equals:${email})`,
+      `https://www.zohoapis.eu/crm/v2/Portal_Users/search?criteria=(Email:equals:${email})`,
       {
         headers: {
-          Authorization: response.data.access_token,
+          Authorization: token,
         },
       }
     );
-    console.log({ userFound: userFound.data });
+    console.log({ userFound: userFound.data.data[0] });
     //if user not found with this email
     if (!userFound.data) {
       return NextResponse.json({
@@ -79,14 +86,14 @@ export async function POST(request) {
         maxAge: 24 * 60 * 60, // 1 day in seconds
         httpOnly: true,
       });
-    
+
       const data = {
         email: userFound.data.data[0].Email,
         record_id: userFound.data.data[0].id,
         name: userFound.data.data[0].Name1,
         fname: userFound.data.data[0].First_Name,
       };
-    
+
       // Correctly stringify the data object
       cookies().set("data", JSON.stringify(data), {
         secure: true,
@@ -95,7 +102,6 @@ export async function POST(request) {
       });
     }
 
-    
     console.log({
       force_password: userFound.data.data[0].Force_Password_Change,
     });
@@ -116,4 +122,3 @@ export async function POST(request) {
     return NextResponse.json({ ok: false, err: JSON.stringify(err) });
   }
 }
-

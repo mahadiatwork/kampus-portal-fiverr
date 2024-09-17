@@ -26,7 +26,7 @@ export async function POST(request) {
       ],
     });
     const updateDb = await axios.put(
-      `https://www.zohoapis.com/crm/v2/Portal_Users/${record_id}`,
+      `https://www.zohoapis.eu/crm/v2/Portal_Users/${record_id}`,
       data,
       {
         headers: {

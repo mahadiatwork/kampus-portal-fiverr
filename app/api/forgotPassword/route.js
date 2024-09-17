@@ -14,7 +14,7 @@ export async function POST(request) {
       });
     }
     const userFound = await axios.get(
-      `https://www.zohoapis.com/crm/v2/Portal_Users/search?criteria=(Email:equals:${email})`,
+      `https://www.zohoapis.eu/crm/v2/Portal_Users/search?criteria=(Email:equals:${email})`,
       {
         headers: {
           Authorization: response.data.access_token,
@@ -47,7 +47,7 @@ export async function POST(request) {
     });
 
     const resetPasswordResponse = await axios.put(
-      `https://www.zohoapis.com/crm/v2/Portal_Users`,
+      `https://www.zohoapis.eu/crm/v2/Portal_Users`,
       data,
       {
         headers: {
