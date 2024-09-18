@@ -1,10 +1,32 @@
-import React from 'react'
-import Jobs from "../../components/molecules/JobLists"
+import React from "react";
+import JobLists from "../../components/molecules/JobLists";
+import axios from "axios";
 
-export const page = () => {
+async function fetchJobs(accessToken) {
+  try {
+    const jobs = await axios.get(`https://www.zohoapis.eu/crm/v2.1/ZORDIJOB?fields=JOB_ID,Intitul_du_poste,Profil_souhait_exp_rience_comp_tence	,Localisation_poste,Date_recrutement&per_page=10`, {
+      headers: {
+        Authorization: `${accessToken}`, // Ensure correct format
+      },
+    });
+    return jobs.data.data;
+  } catch (error) {
+    console.error("Error fetching candidate profile:", error);
+    return null;
+  }
+}
+
+export default async function Jobs() {
+  const response = await axios.get(process.env.ACCESSTOKEN_URL);
+  const accessToken = response.data.access_token;
+
+  const jobs = await fetchJobs(accessToken);
+
+  console.log({ jobs });
+
   return (
-    <div>
-      <Jobs />
+    <div className="bg-gray-100 min-h-screen pt-10">
+      <JobLists jobResp={jobs} />
     </div>
-  )
+  );
 }

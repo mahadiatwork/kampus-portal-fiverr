@@ -71,14 +71,14 @@ const LoginPage = () => {
         <div className="flex justify-center">
           <Image
             src={logo} // Path relative to the public directory
-            alt="Kampus Logo"
+            alt="Logo Kampus"
             width={200} // Desired width of the image
             height={100} // Desired height of the image
             priority // Optional: if you want to prioritize loading of this image
           />
         </div>
         <PageTitle
-          headerText="Let’s Login to your Account"
+          headerText="Connectez-vous à votre compte"
           className="text-white"
         />
         <Form {...form}>
@@ -90,7 +90,7 @@ const LoginPage = () => {
                 <SingleField
                   field={field}
                   title="Email"
-                  placeholder="example@xyz.com"
+                  placeholder="exemple@xyz.com"
                   className="mb-6 text-white"
                 />
               )}
@@ -102,8 +102,8 @@ const LoginPage = () => {
                 <SingleField
                   type="password"
                   field={field}
-                  title="Password"
-                  placeholder="Enter your password"
+                  title="Mot de passe"
+                  placeholder="Entrez votre mot de passe"
                   className="mb-3 text-white"
                 />
               )}
@@ -114,7 +114,7 @@ const LoginPage = () => {
               }}
               className="text-right text-[#fff] mb-6 hover:underline"
             >
-              Forgot Password
+              Mot de passe oublié
             </LinkButton>
 
             <Button
@@ -122,21 +122,21 @@ const LoginPage = () => {
               btnDisabled={btnDisabled}
               className="w-full mb-4 text-[#00000]"
             >
-              Log In
+              Connexion
             </Button>
           </form>
         </Form>
 
         {/* Register Link */}
         <div className="text-center mt-4 text-white">
-          Don't have an account?{" "}
+          Vous n'avez pas de compte ?{" "}
           <LinkButton
             onClick={() => {
               router.push("/register");
             }}
             className="text-[#FFCF56] hover:underline"
           >
-            Register
+            Inscrivez-vous
           </LinkButton>
         </div>
 

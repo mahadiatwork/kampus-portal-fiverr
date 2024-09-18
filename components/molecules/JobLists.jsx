@@ -1,110 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import JobListing from "../HomeComps/Joblisting";
 import Navbar from "../common/Navbar";
 import SearchBar from "../HomeComps/Search";
 
-const jobs = [
-  {
-    title: 'Agent Immobilier Sénior Requis',
-    location: 'Canada',
-    published: 7,
-    category: 'Ventes & Marketing',
-    type: 'Temps Plein',
-    image: '/path/to/image1.png',
-  },
-  {
-    title: 'Collecteur de Dons pour Bureau de Charité',
-    location: 'Inde',
-    published: 7,
-    category: 'Ventes & Marketing',
-    type: 'Temps Plein',
-    image: '/path/to/image2.png',
-  },
-  {
-    title: 'Agent de Vérification des Comptes de Fin d\'Année',
-    location: 'Inde',
-    published: 7,
-    category: 'Construction / Installations',
-    type: 'Temps Plein',
-    image: '/path/to/image3.png',
-  },
-  {
-    title: 'Enseignante Requise pour les Étudiants',
-    location: 'Australie',
-    published: 7,
-    category: 'Restauration / Services Alimentaires',
-    type: 'Freelance',
-    image: '/path/to/image4.png',
-  },
-  {
-    title: 'Chef de Projet en Informatique',
-    location: 'France',
-    published: 5,
-    category: 'Technologie de l\'Information',
-    type: 'Temps Plein',
-    image: '/path/to/image5.png',
-  },
-  {
-    title: 'Développeur Web Junior',
-    location: 'Belgique',
-    published: 3,
-    category: 'Technologie de l\'Information',
-    type: 'Stage',
-    image: '/path/to/image6.png',
-  },
-  {
-    title: 'Consultant en Ressources Humaines',
-    location: 'Suisse',
-    published: 10,
-    category: 'Ressources Humaines',
-    type: 'Temps Partiel',
-    image: '/path/to/image7.png',
-  },
-  {
-    title: 'Spécialiste du Marketing Numérique',
-    location: 'France',
-    published: 2,
-    category: 'Ventes & Marketing',
-    type: 'Temps Plein',
-    image: '/path/to/image8.png',
-  },
-  {
-    title: 'Technicien de Maintenance Industrielle',
-    location: 'Allemagne',
-    published: 8,
-    category: 'Ingénierie',
-    type: 'Temps Plein',
-    image: '/path/to/image9.png',
-  },
-  {
-    title: 'Assistant Administratif Bilingue',
-    location: 'Luxembourg',
-    published: 4,
-    category: 'Administration',
-    type: 'Temps Plein',
-    image: '/path/to/image10.png',
-  },
-];
-
-
-const JobLists = () => {
+const JobLists = ({ jobResp }) => {
   const router = useRouter();
-  const [jobTitle, setJobTitle] = useState('');
-  const [location, setLocation] = useState('');
-  const [category, setCategory] = useState('');
-  const [filteredJobs, setFilteredJobs] = useState(jobs); // Initialize with all jobs
+  const [jobTitle, setJobTitle] = useState("");
+  const [location, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [filteredJobs, setFilteredJobs] = useState(jobResp); // Initialize with jobResp
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 5; // Number of jobs per page
 
+  useEffect(() => {
+    setFilteredJobs(jobResp); // Set initial filtered jobs with jobResp
+  }, [jobResp]);
+
   // Filter jobs based on search criteria
   const filterJobs = () => {
-    const filtered = jobs.filter((job) => {
+    const filtered = jobResp.filter((job) => {
       return (
-        (jobTitle === '' || job.title.toLowerCase().includes(jobTitle.toLowerCase())) &&
-        (location === '' || job.location.toLowerCase().includes(location.toLowerCase())) &&
-        (category === '' || job.category === category)
+        (jobTitle === "" || job.Intitul_du_poste.toLowerCase().includes(jobTitle.toLowerCase())) &&
+        (location === "" || job.Localisation_poste.toLowerCase().includes(location.toLowerCase())) &&
+        (category === "" || job.Profil_souhait_exp_rience_comp_tence.toLowerCase().includes(category.toLowerCase()))
       );
     });
     setFilteredJobs(filtered);
@@ -158,7 +78,7 @@ const JobLists = () => {
           {/* Previous Button */}
           <button
             onClick={handlePreviousPage}
-            className={`px-3 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#623CEA] text-white'}`}
+            className={`px-3 py-2 rounded ${currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
             disabled={currentPage === 1}
           >
             &larr; Previous
@@ -169,7 +89,7 @@ const JobLists = () => {
             <button
               key={index}
               onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded ${currentPage === index + 1 ? 'bg-[#623CEA] text-white' : 'bg-gray-200 text-gray-800 hover:bg-blue-100'}`}
+              className={`px-4 py-2 rounded ${currentPage === index + 1 ? "bg-[#623CEA] text-white" : "bg-gray-200 text-gray-800 hover:bg-blue-100"}`}
             >
               {index + 1}
             </button>
@@ -178,7 +98,7 @@ const JobLists = () => {
           {/* Next Button */}
           <button
             onClick={handleNextPage}
-            className={`px-3 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#623CEA] text-white'}`}
+            className={`px-3 py-2 rounded ${currentPage === totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
             disabled={currentPage === totalPages}
           >
             Next &rarr;

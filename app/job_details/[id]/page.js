@@ -1,36 +1,35 @@
-// pages/job/page.js
+// pages/job/[id].js
 
+import axios from 'axios';
 import JobDetails from '../../../components/molecules/JobDetails';
 
-async function fetchJobDetails() {
-  // Simulate fetching data from a server or database
-  // Replace this with real data fetching from your API or database
-  return {
-    title: 'HouseHold',
-    categories: ['Project', 'Managers'],
-    postedDate: 'Posted 7 months ago',
-    location: 'Aurora, Colorado',
-    employmentType: 'Full Time',
-    salary: '$35000 - 38000',
-    website: 'Demolink.org',
-    phone: '(800) 1234567',
-    description:
-      "Project managers ensure that a project is completed on time and within budget, that the project's objectives are met and that everyone is doing their job properly. Projects are usually separate to usual day-to-day business activities and require a group of people to work together to achieve a set of specific objectives. Project managers oversee the project to ensure the desired result is achieved, the most efficient resources are used and the different interests involved are satisfied.",
-    accountability: [
-      'Agreeing project objectives;',
-      'Overseeing the accounting, costing and billing;',
-      'Carrying out risk assessment;',
-      'Monitoring sub-contractors;',
-      'Representing the clients;',
-      'Using IT systems to keep track of progress;',
-      'Making sure the quality standards are met;',
-      'Providing advice on the management of projects;',
-    ],
-  };
+async function fetchJobDetails(id, accessToken) {
+  try {
+    const jobs = await axios.get(`https://www.zohoapis.eu/crm/v2.1/ZORDIJOB/${id}`, {
+      headers: {
+        Authorization: `${accessToken}`, // Ensure correct format
+      },
+    });
+    return jobs.data.data[0];
+  } catch (error) {
+    console.error("Error fetching candidate profile:", error);
+    return null;
+  }
 }
 
-export default async function JobPage() {
-  const job = await fetchJobDetails();
+
+export default async function JobPage({ params }) {
+  const { id } = params; // Get the job ID from the URL via the `params` object
+  const response = await axios.get(process.env.ACCESSTOKEN_URL);
+  const accessToken = response.data.access_token;
+
+  const job = await fetchJobDetails(id,accessToken); // Fetch the job details asynchronously
+
+  console.log({job})
+
+  if (!job) {
+    return <div>Loading...</div>; // Handle loading state
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">

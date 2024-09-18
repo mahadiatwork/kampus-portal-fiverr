@@ -22,7 +22,7 @@ export default function Navbar() {
         router.push("/login");
       }
     } catch (error) {
-      console.error("Logout failed", error);
+      console.error("La déconnexion a échoué", error);
     }
   };
 
@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="text-xl font-bold text-blue-600">
           <Image
             src={logo} // Path relative to the public directory
-            alt="Kampus Logo"
+            alt="Logo Kampus"
             width={150} // Desired width of the image
             height={75} // Desired height of the image
             priority // Optional: if you want to prioritize loading of this image
@@ -52,12 +52,12 @@ export default function Navbar() {
               className="text-white hover:text-[#FFCF56]"
               onClick={toggleMobileMenu} // Close menu on click
             >
-              Profile
+              Profil
             </Link>
           </li>
           <li>
             <Link href="/jobs" className="text-white hover:text-[#FFCF56]">
-              Jobs
+              Offres d'emploi
             </Link>
           </li>
           <li>
@@ -65,7 +65,7 @@ export default function Navbar() {
               href="/applications"
               className="text-white hover:text-[#FFCF56]"
             >
-              My Applications
+              Mes candidatures
             </Link>
           </li>
           <li>
@@ -80,7 +80,7 @@ export default function Navbar() {
       <button
         className="md:hidden text-white"
         onClick={toggleMobileMenu}
-        aria-label="Toggle Mobile Menu"
+        aria-label="Ouvrir le menu mobile"
       >
         {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
       </button>
@@ -94,7 +94,7 @@ export default function Navbar() {
               className="text-white hover:text-[#FFCF56]"
               onClick={toggleMobileMenu} // Close menu on click
             >
-              Profile
+              Profil
             </Link>
           </li>
           <li>
@@ -103,7 +103,7 @@ export default function Navbar() {
               className="text-white hover:text-[#FFCF56]"
               onClick={toggleMobileMenu} // Close menu on click
             >
-              Jobs
+              Offres d'emploi
             </Link>
           </li>
           <li>
@@ -112,7 +112,7 @@ export default function Navbar() {
               className="text-white hover:text-[#FFCF56]"
               onClick={toggleMobileMenu} // Close menu on click
             >
-              My Applications
+              Mes candidatures
             </Link>
           </li>
           <li>
@@ -129,7 +129,7 @@ export default function Navbar() {
               onClick={handleLogout}
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full text-center"
             >
-              Log Out
+              Se déconnecter
             </button>
           </li>
         </ul>
@@ -140,7 +140,7 @@ export default function Navbar() {
         onClick={handleLogout}
         className="hidden md:block ml-auto bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
       >
-        Log Out
+        Se déconnecter
       </button>
     </nav>
   );
