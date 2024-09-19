@@ -51,7 +51,7 @@ const SearchBar = ({
         className="bg-[#623CEA] text-white px-4 py-2 rounded-lg w-full md:w-auto hover:bg-[#5245B6]"
         onClick={onSearch}
       >
-        Rechercher des emplois
+        Recherche
       </button>
     </div>
   );

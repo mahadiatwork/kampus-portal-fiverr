@@ -25,7 +25,7 @@ export default async function Jobs() {
   console.log({ jobs });
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-10">
+    <div className="bg-gray-100 min-h-screen">
       <JobLists jobResp={jobs} />
     </div>
   );

@@ -65,9 +65,9 @@ const JobLists = ({ jobResp }) => {
         onSearch={filterJobs}
       />
       <div className="max-w-2xl mx-auto py-10">
-        <h2 className="text-xl font-bold mb-4">{filteredJobs?.length} Jobs Found</h2>
+        <h2 className="text-xl font-bold mb-4">{filteredJobs?.length} Offres trouvées</h2>
         <p className="text-sm text-gray-600 mb-6">
-          Displaying {indexOfFirstJob + 1} - {Math.min(indexOfLastJob, filteredJobs.length)} of {filteredJobs.length} Jobs
+          Affichage de {indexOfFirstJob + 1} à {Math.min(indexOfLastJob, filteredJobs.length)} sur {filteredJobs.length} offres
         </p>
         {currentJobs.map((job, index) => (
           <JobListing key={index} job={job} />
@@ -81,7 +81,7 @@ const JobLists = ({ jobResp }) => {
             className={`px-3 py-2 rounded ${currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
             disabled={currentPage === 1}
           >
-            &larr; Previous
+            &larr; Précédent
           </button>
 
           {/* Page Number Buttons */}
@@ -101,7 +101,7 @@ const JobLists = ({ jobResp }) => {
             className={`px-3 py-2 rounded ${currentPage === totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
             disabled={currentPage === totalPages}
           >
-            Next &rarr;
+            Suivant &rarr;
           </button>
         </div>
       </div>

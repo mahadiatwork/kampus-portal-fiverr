@@ -92,6 +92,7 @@ export async function POST(request) {
         record_id: userFound.data.data[0].id,
         name: userFound.data.data[0].Name1,
         fname: userFound.data.data[0].First_Name,
+        STUDENT_ID: userFound.data.data[0].STUDENT_ID,
       };
 
       // Correctly stringify the data object

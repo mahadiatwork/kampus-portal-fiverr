@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import JobDetails from '../../../components/molecules/JobDetails';
+import { cookies } from 'next/headers';
 
 async function fetchJobDetails(id, accessToken) {
   try {
@@ -25,7 +26,10 @@ export default async function JobPage({ params }) {
 
   const job = await fetchJobDetails(id,accessToken); // Fetch the job details asynchronously
 
-  console.log({job})
+ // Fetch cookies
+ const cookieStore = cookies();
+ const userInfo = cookieStore.get('data')?.value;
+ const userInfoData = userInfo ? JSON.parse(userInfo) : null;
 
   if (!job) {
     return <div>Loading...</div>; // Handle loading state
@@ -33,7 +37,7 @@ export default async function JobPage({ params }) {
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">
-      <JobDetails job={job} />
+      <JobDetails job={job} userInfoData={userInfoData} />
     </div>
   );
 }

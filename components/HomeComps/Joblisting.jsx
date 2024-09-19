@@ -1,8 +1,8 @@
 // components/JobListing.js
 
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function JobListing({ job }) {
   const router = useRouter();
@@ -14,14 +14,14 @@ export default function JobListing({ job }) {
   // Define icons for different job types
   const getJobTypeIcon = (type) => {
     switch (type) {
-      case 'Temps Plein': // Assuming this is full-time
-        return '🕒'; // Clock icon for full-time jobs
-      case 'Temps Partiel': // Part-time in French
-        return '⏰'; // Alarm clock icon for part-time jobs
-      case 'Freelance':
-        return '💼'; // Briefcase icon for freelance jobs
+      case "Temps Plein": // Assuming this is full-time
+        return "🕒"; // Clock icon for full-time jobs
+      case "Temps Partiel": // Part-time in French
+        return "⏰"; // Alarm clock icon for part-time jobs
+      case "Freelance":
+        return "💼"; // Briefcase icon for freelance jobs
       default:
-        return '📌'; // Default pin icon
+        return "📌"; // Default pin icon
     }
   };
 
@@ -33,17 +33,22 @@ export default function JobListing({ job }) {
   return (
     <div className="border-b p-4 flex items-center">
       <div className="flex-grow">
-        <h3 className="text-lg font-semibold">{job.Intitul_du_poste || 'Untitled Job'}</h3>
+        <h3 className="text-lg font-semibold">
+          {job.Intitul_du_poste || "Untitled Job"}
+        </h3>
         <div className="text-sm text-gray-500">
           {/* Use flex and consistent width for icon containers to align icons */}
           <p className="flex items-center">
-            <span className="mr-2 w-4 text-center">📍</span> {job.Localisation_poste || 'Unknown location'}
+            <span className="mr-2 w-4 text-center">📍</span>{" "}
+            {job.Localisation_poste || "Unknown location"}
           </p>
           <p className="flex items-center">
-            <span className="mr-2 w-4 text-center">📅</span> Recruitment Date: {job.Date_recrutement || 'N/A'}
+            <span className="mr-2 w-4 text-center">📅</span> Recruitment Date:{" "}
+            {job.Date_recrutement || "N/A"}
           </p>
           <p className="flex items-center">
-            <span className="mr-2 w-4 text-center">🏷️</span> {job.Profil_souhait_exp_rience_comp_tence || 'No profile specified'}
+            <span className="mr-2 w-4 text-center">🏷️</span>{" "}
+            {job.Profil_souhait_exp_rience_comp_tence || "No profile specified"}
           </p>
         </div>
       </div>
@@ -52,7 +57,7 @@ export default function JobListing({ job }) {
           className="px-4 py-2 bg-[#FFCF56] rounded hover:bg-[#623CEA] hover:text-white"
           onClick={() => handleApplyClick(job.id)}
         >
-          Apply
+          Voir les détails
         </button>
       </div>
     </div>
