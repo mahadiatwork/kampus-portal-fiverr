@@ -132,7 +132,7 @@ const LoginPage = () => {
           Vous n'avez pas de compte ?{" "}
           <LinkButton
             onClick={() => {
-              router.push("/register");
+              router.push("https://zfrmz.eu/9BqwJp3dcqzNj4WxWGaC");
             }}
             className="text-[#FFCF56] hover:underline"
           >
