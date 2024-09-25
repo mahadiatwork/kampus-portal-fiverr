@@ -6,6 +6,13 @@ import Navbar from "@/components/common/Navbar";
 import Loader from "@/components/common/Loader"; // Adjust path as needed
 import "./globals.css";
 
+
+export const metadata = {
+  title: 'Portail KAMPUS RÉUNION | École en ligne pour tous',
+  description: 'Plateforme en ligne pour tous les apprenants à la Réunion.',
+};
+
+
 export default function RootLayout({ children }) {
   const pathname = usePathname(); // Get the current path
   const router = useRouter();
@@ -20,6 +27,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+      <title>{metadata.title}</title> {/* Set the title */}
+      <meta name="description" content={metadata.description} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
