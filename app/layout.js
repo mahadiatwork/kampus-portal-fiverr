@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {isPending && <Loader />} {/* Show loader when the transition is pending */}
-        {pathname !== "/login" && <Navbar navigateTo={navigateTo} />}
+        {pathname !== "/login" && pathname !== "/forgotpassword" && <Navbar navigateTo={navigateTo} />}
         <Suspense fallback={<Loader />}>
         {children}
         </Suspense>
