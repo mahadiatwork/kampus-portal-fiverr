@@ -1,4 +1,5 @@
-"use client";
+"use client"; // Ensure this is a client component
+
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
@@ -76,36 +77,6 @@ const ForgotPassword = () => {
   }
 
   return (
-    // <div>
-    //   <input
-    //     placeholder="email"
-    //     onChange={(e) => {
-    //       setEmail(e.target.value);
-    //     }}
-    //     value={email}
-    //   />
-    //   <button
-    //     onClick={async () => {
-    //       fetch("../api/forgotPassword", {
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //           email,
-    //         }),
-    //       })
-    //         .then((res) => {
-    //           return res.json();
-    //         })
-    //         .then((res) => {
-    //           console.log({ res });
-    //           if (res.ok) {
-    //             return router.push("/login");
-    //           }
-    //         });
-    //     }}
-    //   >
-    //     Save
-    //   </button>
-    // </div>
     <div className="bg-ellipse">
       <div className="bg-[#FFFFFF] rounded-3xl p-4 md:p-9 w-full sm:w-[576px]">
         <LinkButton
@@ -113,12 +84,12 @@ const ForgotPassword = () => {
           className="font-medium text-base mb-8 hover:underline flex space-x-2 items-center"
         >
           <Image src={BackIcon} alt="back icon" width={12} priority />
-          <p>Back to sign in</p>
+          <p>Retour à la connexion</p>
         </LinkButton>
 
         <PageTitle
-          headerText="Forgot your password"
-          helperText="Enter the email address you used to sign up to portal and we’ll send you instructions to reset your password"
+          headerText="Mot de passe oublié"
+          helperText="Entrez l'adresse e-mail que vous avez utilisée pour vous inscrire sur le portail, et nous vous enverrons les instructions pour réinitialiser votre mot de passe."
         />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -129,7 +100,7 @@ const ForgotPassword = () => {
                 <SingleField
                   field={field}
                   title="Email"
-                  placeholder="example@xyz.com"
+                  placeholder="exemple@xyz.com"
                   className="mb-6"
                 />
               )}
@@ -139,7 +110,7 @@ const ForgotPassword = () => {
               btnDisabled={btnDisabled}
               className="w-full mb-4 text-white"
             >
-              Reset my password
+              Réinitialiser mon mot de passe
             </Button>
           </form>
         </Form>
