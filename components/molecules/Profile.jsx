@@ -8,8 +8,9 @@ export default function ProfileForm({ candidate }) {
     firstName: candidate.First_Name,
     lastName: candidate.Last_Name,
     email: candidate.Email,
-    cvUrl: '', // New field for CV URL
+    CV_LINK: candidate.CV_Link, // New field for CV URL
     STUDENT_ID: candidate.STUDENT_ID, // Ensure you have the userId for updating the correct user
+    id: candidate.id
   });
 
   const [message, setMessage] = useState('');
@@ -126,8 +127,8 @@ export default function ProfileForm({ candidate }) {
           </label>
           <input
             type="url"
-            name="cvUrl"
-            value={formData.cvUrl}
+            name="CV_LINK"
+            value={formData.CV_LINK}
             onChange={handleChange}
             placeholder="Entrez l'URL de votre CV (Google Drive, OneDrive, etc.)"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"

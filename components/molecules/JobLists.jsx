@@ -22,9 +22,18 @@ const JobLists = ({ jobResp }) => {
   const filterJobs = () => {
     const filtered = jobResp.filter((job) => {
       return (
-        (jobTitle === "" || job.Intitul_du_poste.toLowerCase().includes(jobTitle.toLowerCase())) &&
-        (location === "" || job.Localisation_poste.toLowerCase().includes(location.toLowerCase())) &&
-        (category === "" || job.Profil_souhait_exp_rience_comp_tence.toLowerCase().includes(category.toLowerCase()))
+        (jobTitle === "" ||
+          job.Intitul_du_poste.toLowerCase().includes(
+            jobTitle.toLowerCase()
+          )) &&
+        (location === "" ||
+          job.Localisation_poste.toLowerCase().includes(
+            location.toLowerCase()
+          )) &&
+        (category === "" ||
+          job.Profil_souhait_exp_rience_comp_tence.toLowerCase().includes(
+            category.toLowerCase()
+          ))
       );
     });
     setFilteredJobs(filtered);
@@ -65,40 +74,93 @@ const JobLists = ({ jobResp }) => {
         onSearch={filterJobs}
       />
       <div className="max-w-2xl mx-auto py-10">
-        <h2 className="text-xl font-bold mb-4">{filteredJobs?.length} Offres trouvées</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {filteredJobs?.length} Offres trouvées
+        </h2>
         <p className="text-sm text-gray-600 mb-6">
-          Affichage de {indexOfFirstJob + 1} à {Math.min(indexOfLastJob, filteredJobs.length)} sur {filteredJobs.length} offres
+          Affichage de {indexOfFirstJob + 1} à{" "}
+          {Math.min(indexOfLastJob, filteredJobs.length)} sur{" "}
+          {filteredJobs.length} offres
         </p>
         {currentJobs.map((job, index) => (
-          <JobListing key={index} job={job} />
+          <JobListing key={job.id || index} job={job} />
         ))}
 
         {/* Pagination Controls */}
-        <div className="flex justify-center mt-8 space-x-2">
+        <div className="flex justify-center mt-8 space-x-2 flex-wrap">
           {/* Previous Button */}
           <button
             onClick={handlePreviousPage}
-            className={`px-3 py-2 rounded ${currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
+            className={`px-3 py-2 rounded ${
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-[#623CEA] text-white"
+            }`}
             disabled={currentPage === 1}
           >
             &larr; Précédent
           </button>
 
-          {/* Page Number Buttons */}
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded ${currentPage === index + 1 ? "bg-[#623CEA] text-white" : "bg-gray-200 text-gray-800 hover:bg-blue-100"}`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {/* Page Number Buttons with Ellipses */}
+          {currentPage > 2 && (
+            <>
+              <button
+                onClick={() => handlePageChange(1)}
+                className="px-3 py-2 rounded bg-gray-200 text-gray-800 hover:bg-blue-100"
+              >
+                1
+              </button>
+              {currentPage > 3 && <span className="px-3 py-2">...</span>}
+            </>
+          )}
+
+          {/* Dynamically show page numbers around the current page */}
+          {Array.from({ length: totalPages }, (_, index) => {
+            const pageNumber = index + 1;
+            if (
+              pageNumber === currentPage ||
+              pageNumber === currentPage - 1 ||
+              pageNumber === currentPage + 1
+            ) {
+              return (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}
+                  className={`px-3 py-2 rounded ${
+                    currentPage === pageNumber
+                      ? "bg-[#623CEA] text-white"
+                      : "bg-gray-200 text-gray-800 hover:bg-blue-100"
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              );
+            }
+          })}
+
+          {/* Ellipses and Last Page */}
+          {currentPage < totalPages - 2 && (
+            <>
+              {currentPage < totalPages - 3 && (
+                <span className="px-3 py-2">...</span>
+              )}
+              <button
+                onClick={() => handlePageChange(totalPages)}
+                className="px-3 py-2 rounded bg-gray-200 text-gray-800 hover:bg-blue-100"
+              >
+                {totalPages}
+              </button>
+            </>
+          )}
 
           {/* Next Button */}
           <button
             onClick={handleNextPage}
-            className={`px-3 py-2 rounded ${currentPage === totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-[#623CEA] text-white"}`}
+            className={`px-3 py-2 rounded ${
+              currentPage === totalPages
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-[#623CEA] text-white"
+            }`}
             disabled={currentPage === totalPages}
           >
             Suivant &rarr;

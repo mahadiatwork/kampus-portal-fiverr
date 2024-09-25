@@ -4,7 +4,7 @@ import axios from "axios";
 
 async function fetchJobs(accessToken) {
   try {
-    const jobs = await axios.get(`https://www.zohoapis.eu/crm/v2.1/ZORDIJOB?fields=JOB_ID,Intitul_du_poste,Profil_souhait_exp_rience_comp_tence	,Localisation_poste,Date_recrutement&per_page=10`, {
+    const jobs = await axios.get(`https://www.zohoapis.eu/crm/v2.1/ZORDIJOB?fields=JOB_ID,Intitul_du_poste,Profil_souhait_exp_rience_comp_tence	,Localisation_poste,Date_recrutement&per_page=200`, {
       headers: {
         Authorization: `${accessToken}`, // Ensure correct format
       },

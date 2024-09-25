@@ -69,8 +69,8 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="text-white hover:text-[#FFCF56]">
-              Contact
+            <Link href="/services" className="text-white hover:text-[#FFCF56]">
+            Nos prestations
             </Link>
           </li>
         </ul>
@@ -117,11 +117,11 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/contact"
+              href="/services"
               className="text-white hover:text-[#FFCF56]"
               onClick={toggleMobileMenu} // Close menu on click
             >
-              Contact
+              Nos prestations
             </Link>
           </li>
           <li>

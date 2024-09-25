@@ -1,5 +1,3 @@
-// app/api/zoho/route.js
-
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
@@ -11,7 +9,7 @@ export async function POST(request) {
     const response = await axios.get(process.env.ACCESSTOKEN_URL);
 
     // Extracting data from the request body
-    const { firstName, lastName, email, userId } = body;
+    const { firstName, lastName, email, CV_LINK, id } = body;
 
     // Prepare the data to update
     const updatedUser = {
@@ -20,9 +18,14 @@ export async function POST(request) {
       Email: email,
     };
 
+    // Conditionally add CV_LINK if it is not empty
+    if (CV_LINK && CV_LINK.trim() !== '') {
+      updatedUser.CV_Link = CV_LINK;
+    }
+
     // Make a PATCH request to update the user in Zoho CRM
-    const userFound = await axios.patch(
-      `https://www.zohoapis.com/crm/v2/Portal_Users/${userId}`, 
+    const updateUserRep = await axios.patch(
+      `https://www.zohoapis.eu/crm/v2/Portal_Users/${id}`,
       { data: [updatedUser] }, // Wrapping updatedUser in a "data" array as per Zoho CRM's API structure
       {
         headers: {
@@ -32,8 +35,10 @@ export async function POST(request) {
       }
     );
 
+    console.log({updateUserRep: updateUserRep.data.data[0].details})
+
     // Return a success response with the updated user data
-    return NextResponse.json({ success: true, data: userFound.data.data[0] });
+    return NextResponse.json({ success: true, data: updateUserRep.data.data[0] });
   } catch (error) {
     console.error('Error updating profile:', error);
     return NextResponse.json(
