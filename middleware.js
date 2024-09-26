@@ -1,48 +1,37 @@
 import { NextResponse } from "next/server";
-import { sign, verify } from "./app/lib/utils";
-import { SignJWT, jwtVerify, base64url, jwtDecrypt } from "jose";
+import { verify } from "./app/lib/utils";
 
 // This function can be marked `async` if using `await` inside
 export default async function middleware(request) {
   const jwt = request.cookies.get("token");
-  const url = request.url;
   const { pathname } = request.nextUrl;
-  if (pathname === "/") {
+
+  // Allow access to static files and API routes without authentication
+  const publicPaths = ["/login", "/", "/services"];
+
+  // If JWT exists and is valid, allow access to all routes
+  if (jwt) {
     try {
-      const tokenValue = await verify(jwt.value, process.env.JWT_SECRET);
-      request.nextUrl.pathname = "/jobs";
-      return NextResponse.redirect(request.nextUrl);
+      await verify(jwt.value, process.env.JWT_SECRET);
+      return NextResponse.next(); // Proceed to the requested page if JWT is valid
     } catch (error) {
+      // If JWT is invalid or expired, clear it and redirect to login
+      request.cookies.delete("token");
       request.nextUrl.pathname = "/login";
       return NextResponse.redirect(request.nextUrl);
     }
   }
 
-  //following code will handle reset_password,login,forgotpassword,root routes
-  if (
-    pathname.startsWith("/reset_password") ||
-    pathname === "/login" ||
-    pathname === "/forgotpassword" ||
-    pathname === "/"
-  ) {
-    try {
-      const tokenValue = await verify(jwt.value, process.env.JWT_SECRET);
-      request.nextUrl.pathname = "/jobs";
-      return NextResponse.redirect(request.nextUrl);
-    } catch (error) {
-      return NextResponse.next();
-    }
-  }
-
-  //following code will handle all the protected routes
-  try {
-    const tokenValue = await verify(jwt.value, process.env.JWT_SECRET);
-    return NextResponse.next();
-  } catch (error) {
+  // If user is not logged in and tries to access a protected route, redirect to /login
+  if (!publicPaths.includes(pathname)) {
     request.nextUrl.pathname = "/login";
     return NextResponse.redirect(request.nextUrl);
   }
+
+  // Allow access to root and login pages without authentication
+  return NextResponse.next();
 }
+
 export const config = {
   matcher: [
     /*

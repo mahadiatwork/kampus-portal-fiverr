@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa"; // Icons for mobile menu toggle
 import logo from "../../public/assets/Kampus logo.png";
 
-export default function Navbar() {
+export default function Navbar({ isLoggedIn }) {
   const router = useRouter();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -70,7 +70,7 @@ export default function Navbar() {
           </li>
           <li>
             <Link href="/services" className="text-white hover:text-[#FFCF56]">
-            Nos prestations
+              Nos prestations
             </Link>
           </li>
         </ul>
@@ -125,23 +125,42 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full text-center"
-            >
-              Se déconnecter
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full text-center"
+              >
+                Se déconnecter
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-[#FFCF56] px-4 py-2 rounded hover:text-white w-full text-center"
+                onClick={toggleMobileMenu}
+              >
+                Se connecter
+              </Link>
+            )}
           </li>
         </ul>
       )}
 
-      {/* Logout Button (Desktop) */}
-      <button
-        onClick={handleLogout}
-        className="hidden md:block ml-auto bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-      >
-        Se déconnecter
-      </button>
+      {/* Login/Logout Button (Desktop) */}
+      {isLoggedIn ? (
+        <button
+          onClick={handleLogout}
+          className="hidden md:block ml-auto bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Se déconnecter
+        </button>
+      ) : (
+        <Link
+          href="/login"
+          className="hidden md:block ml-auto bg-[#FFCF56] px-4 py-2 rounded hover:text-white"
+        >
+          Se connecter
+        </Link>
+      )}
     </nav>
   );
 }
